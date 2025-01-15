@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Color Generator</title>
+    <script src="assets/js/p5.min.js" defer></script>
+    <script src="assets/js/palette.js" defer></script>
+    <script src="assets/js/slider.js" defer></script>
+    <script src="assets/js/main.js" defer></script>
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<div id="paletteContainer"></div>
+<div class="scale">
+    <div class="slider_axis">
+        <p></p>
+        <p id="axeY_min">test</p>
+        <p></p>
+
+        <p id="axeX_min">test</p>
+        <div id="sliderContainer"></div>
+        <p id="axeX_max">test</p>
+
+        <p></p>
+        <p id="axeY_max">test</p>
+        <p></p>
+    </div>
+    <form>
+        <input type="hidden" id="valueX" value="0">
+        <input type="hidden" id="axeX" value="none">
+        <input type="hidden" id="valueY" value="0">
+        <input type="hidden" id="axeY" value="none">
+        <input type="submit" value="Valider" id="submitForm">
+    </form>
+</div>
+</body>
+</html>
