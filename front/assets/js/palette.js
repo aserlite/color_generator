@@ -1,13 +1,5 @@
 let palette = [];
 
-const classificationCriteria = {
-    climate: ["passive", "active", "dull", "bright"],
-    temperature: ["cold", "warm", "wet", "dry"],
-    aroma: ["sugary", "bitter", "mild", "acid"],
-    sound: ["silent", "noisy", "harsh", "harmonious"],
-    emotion: ["calm", "energetic", "melancholic", "joyful"]
-};
-
 const colorPalette = [
     {name: "Sunset Orange", hsl: {h: 15, s: 100, l: 55}},
     {name: "Deep Blue", hsl: {h: 240, s: 63, l: 47}},
@@ -32,8 +24,6 @@ const colorPalette = [
 ];
 
 const baseColor = colorPalette[Math.floor(Math.random() * colorPalette.length)].hsl;
-const palette_count = 5;
-let sliders = [];
 
 let paletteSketch = (s) => {
     let size = 600;

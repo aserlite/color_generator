@@ -10,7 +10,7 @@ const axes = {
         description: "Classe la couleur selon l'émotion qu'elle évoque, de mélancolique à joyeuse."
     }
 };
-// Write axes titles
+
 document.getElementById("axeX_min").innerHTML = axes.y.range[0];
 document.getElementById("axeX_max").innerHTML = axes.y.range[1];
 document.getElementById("axeY_min").innerHTML = axes.x.range[0];
