@@ -1,10 +1,18 @@
 let axes = {
-    x : concepts[Math.floor(Math.random() * concepts.length)],
-    y : null
+    x: null,
+    y: null
 };
+
+function getRandomConcept() {
+    const concept = concepts[Math.floor(Math.random() * concepts.length)];
+    const range = concept.ranges[Math.floor(Math.random() * concept.ranges.length)];
+    return { name: concept.name, range: range.range };
+}
+
+axes.x = getRandomConcept();
 do {
-    axes.y = concepts[Math.floor(Math.random() * concepts.length)];
-} while (axes.y === axes.x);
+    axes.y = getRandomConcept();
+} while (axes.y.name === axes.x.name);
 
 document.getElementById("axeX_min").innerHTML = axes.x.range[0];
 document.getElementById("axeX_max").innerHTML = axes.x.range[1];

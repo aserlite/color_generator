@@ -23,13 +23,31 @@ const colors = [
 
 const concepts = [
     {
-        name: "Naturel",
-        range: ["artificielle","naturelle"],
-        description: "Classe la couleur selon qu'elle évoque la nature ou un aspect artificiel."
+        name: "Climate",
+        ranges: [
+            { range: ["passive", "active"], description: "Classe la couleur selon qu'elle évoque un climat passif ou actif." },
+            { range: ["dull", "bright"], description: "Classe la couleur selon qu'elle évoque un climat terne ou lumineux." }
+        ]
     },
     {
-        name: "Émotion",
-        range: ["mélancolique", "joyeuse"],
-        description: "Classe la couleur selon l'émotion qu'elle évoque, de mélancolique à joyeuse."
+        name: "Temperature",
+        ranges: [
+            { range: ["cold", "warm"], description: "Classe la couleur selon qu'elle évoque une température froide ou chaude." },
+            { range: ["wet", "dry"], description: "Classe la couleur selon qu'elle évoque une température humide ou sèche." }
+        ]
     },
+    {
+        name: "Aroma",
+        ranges: [
+            { range: ["sugary", "bitter"], description: "Classe la couleur selon qu'elle évoque un arôme sucré ou amer." },
+            { range: ["mild", "acid"], description: "Classe la couleur selon qu'elle évoque un arôme doux ou acide." }
+        ]
+    },
+    {
+        name: "Sound",
+        ranges: [
+            { range: ["silent", "noisy"], description: "Classe la couleur selon qu'elle évoque un son silencieux ou bruyant." },
+            { range: ["harsh", "harmonious"], description: "Classe la couleur selon qu'elle évoque un son dur ou harmonieux." }
+        ]
+    }
 ];
