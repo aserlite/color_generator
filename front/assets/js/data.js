@@ -32,9 +32,4 @@ const concepts = [
         range: ["mélancolique", "joyeuse"],
         description: "Classe la couleur selon l'émotion qu'elle évoque, de mélancolique à joyeuse."
     },
-    {
-        name: "Émotion",
-        range: ["test", "test"],
-        description: "Classe la couleur selon l'émotion qu'elle évoque, de mélancolique à joyeuse."
-    }
 ];

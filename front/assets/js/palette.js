@@ -1,5 +1,5 @@
 let palette = [];
-const baseColor = colors[Math.floor(Math.random() * colors.length)].hsl;
+let baseColor = colors[Math.floor(Math.random() * colors.length)].hsl;
 
 let paletteSketch = (s) => {
     let size = 600;
@@ -34,6 +34,7 @@ let paletteSketch = (s) => {
     }
 
     window.generateNewPalette = function() {
+        baseColor = colors[Math.floor(Math.random() * colors.length)].hsl;
         palette = generatePaletteFromColorSet(paletteCount);
         let stripeWidth = s.width / palette.length;
 
