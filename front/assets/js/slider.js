@@ -1,20 +1,15 @@
-const axes = {
-    x: {
-        name: "Naturel",
-        range: ["naturelle", "artificielle"],
-        description: "Classe la couleur selon qu'elle évoque la nature ou un aspect artificiel."
-    },
-    y: {
-        name: "Émotion",
-        range: ["mélancolique", "joyeuse"],
-        description: "Classe la couleur selon l'émotion qu'elle évoque, de mélancolique à joyeuse."
-    }
+let axes = {
+    x : concepts[Math.floor(Math.random() * concepts.length)],
+    y : null
 };
+do {
+    axes.y = concepts[Math.floor(Math.random() * concepts.length)];
+} while (axes.y === axes.x);
 
-document.getElementById("axeX_min").innerHTML = axes.y.range[0];
-document.getElementById("axeX_max").innerHTML = axes.y.range[1];
-document.getElementById("axeY_min").innerHTML = axes.x.range[0];
-document.getElementById("axeY_max").innerHTML = axes.x.range[1];
+document.getElementById("axeX_min").innerHTML = axes.x.range[0];
+document.getElementById("axeX_max").innerHTML = axes.x.range[1];
+document.getElementById("axeY_min").innerHTML = axes.y.range[1];
+document.getElementById("axeY_max").innerHTML = axes.y.range[0];
 
 let sliderSketch = (s) => {
     let range = 10;
@@ -44,14 +39,12 @@ let sliderSketch = (s) => {
         s.line(0, sliderHeight / 2, sliderWidth, sliderHeight / 2); // Axe X
         s.fill(17, 17, 17, 100);
 
-        // Draw handle
         let handleX = xScale(valueX);
         let handleY = yScale(valueY);
         s.fill(100, 150, 255);
         s.ellipse(handleX, handleY, handleRadius * 2);
     };
 
-    // Mouse events
     s.mousePressed = () => {
         let handleX = xScale(valueX);
         let handleY = yScale(valueY);
@@ -77,15 +70,15 @@ let sliderSketch = (s) => {
         document.getElementById("valueY").value = y;
 
         if (x < 0) {
-            document.getElementById("axeX").value = axes.y.range[0];
+            document.getElementById("axeX").value = axes.x.range[0];
         } else {
-            document.getElementById("axeX").value = axes.y.range[1];
+            document.getElementById("axeX").value = axes.x.range[1];
         }
 
         if (y < 0) {
-            document.getElementById("axeY").value = axes.x.range[1];
+            document.getElementById("axeY").value = axes.y.range[0];
         } else {
-            document.getElementById("axeY").value = axes.x.range[0];
+            document.getElementById("axeY").value = axes.y.range[1];
         }
     }
 };

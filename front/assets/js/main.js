@@ -3,14 +3,15 @@ let valueX = document.getElementById("valueX");
 let valueY = document.getElementById("valueY");
 let axeX = document.getElementById("axeX");
 let axeY = document.getElementById("axeY");
+let results = []; // Change to an array
 
 smb.addEventListener("click", function(event) {
     event.preventDefault();
-    if(valueX.value == 0 && valueY.value == 0 ) {
+    if(valueX.value === 0 && valueY.value === 0 ) {
         alert("Please select a position first");
         return;
     }
-    let results = {
+    let result = {
         x:{
             value: Math.abs(valueX.value),
             axe: axeX.value
@@ -21,13 +22,20 @@ smb.addEventListener("click", function(event) {
         }
     };
     console.log(palette);
-    console.log(results.x.axe + " : " + results.x.value);
-    console.log(results.y.axe + " : " + results.y.value);
-    let JsonExport = {
+    console.log(result.x.axe + " : " + result.x.value);
+    console.log(result.y.axe + " : " + result.y.value);
+    let finalResult = {
         palette: palette,
         base_color: baseColor,
-        results: results,
+        results: result,
     };
+    results.push(finalResult);
+
+    // Refresh the palette
+    window.generateNewPalette();
+});
+
+function exportData(){
     const filename = 'data_colors_generator.json';
     const jsonStr = JSON.stringify(JsonExport);
 
@@ -41,4 +49,4 @@ smb.addEventListener("click", function(event) {
     element.click();
 
     document.body.removeChild(element);
-});
+}
