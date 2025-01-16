@@ -21,19 +21,19 @@ smb.addEventListener("click", function(event) {
             axe: axeY.value
         }
     };
-    console.log(palette);
-    console.log(result);
+    let formattedPalette = formatPalette(palette);
     let finalResult = {
-        palette: palette,
+        palette: formattedPalette,
         base_color: baseColor,
         results: result,
     };
     results.push(finalResult);
+    console.log(results);
     localStorage.setItem("results", JSON.stringify(results));
     window.generateNewPalette();
 });
 
-function exportData(){
+function exportDataJson(){
     const filename = 'data_colors_generator.json';
     const jsonStr = JSON.stringify(JsonExport);
 
@@ -64,14 +64,26 @@ document.getElementById("exportCSV").addEventListener("click", function() {
     }
 
     let csvContent = "data:text/csv;charset=utf-8,";
-    csvContent += "Palette,Base Color,X Axis,Y Axis\n";
+    let header = "";
+    if (results.length > 0 && results[0].palette.length > 0) {
+        results[0].palette.forEach((_, index) => {
+            header += `Color ${index + 1} (h),Color ${index + 1} (s),Color ${index + 1} (l),`;
+        });
+    }
+    header += "Base Color(h),Base Color(s),Base Color(l),X Axis,Y Axis\n";
+    csvContent += header;
 
     results.forEach(result => {
+        let paletteStr = result.palette.map(color => `${color.h},${color.s},${color.l}`).join(",");
+        let baseColorStr = `${result.base_color.h},${result.base_color.s},${result.base_color.l}`;
+        let xAxisStr = `${result.results.x.axe} : ${result.results.x.value}`;
+        let yAxisStr = `${result.results.y.axe} : ${result.results.y.value}`;
+
         let row = [
-            result.palette,
-            result.base_color,
-            `${result.results.x.axe} : ${result.results.x.value}`,
-            `${result.results.y.axe} : ${result.results.y.value}`
+            paletteStr,
+            baseColorStr,
+            xAxisStr,
+            yAxisStr
         ].join(",");
         csvContent += row + "\n";
     });
@@ -84,3 +96,13 @@ document.getElementById("exportCSV").addEventListener("click", function() {
     link.click();
     document.body.removeChild(link);
 });
+
+function formatPalette(palette) {
+    return palette.map(color => {
+        return {
+            h: color.hsla[0].toFixed(2) * 360,
+            s: (color.hsla[1] * 100).toFixed(2),
+            l: (color.hsla[2] * 100).toFixed(2)
+        };
+    });
+}
