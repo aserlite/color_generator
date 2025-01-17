@@ -3,7 +3,20 @@ let valueX = document.getElementById("valueX");
 let valueY = document.getElementById("valueY");
 let axeX = document.getElementById("axeX");
 let axeY = document.getElementById("axeY");
+let conceptsResults = new Array();
 let results = localStorage.getItem("results") ? JSON.parse(localStorage.getItem("results")) : [];
+function resetAxes() {
+    valueX.value = 0;
+    valueY.value = 0;
+    axeX.value = "none";
+    axeY.value = "none";
+    axes = getConcepts();
+    window.resetSlider();
+    document.getElementById("axeX_min").innerHTML = axes.x.range[0];
+    document.getElementById("axeX_max").innerHTML = axes.x.range[1];
+    document.getElementById("axeY_min").innerHTML = axes.y.range[1];
+    document.getElementById("axeY_max").innerHTML = axes.y.range[0];
+}
 
 smb.addEventListener("click", function(event) {
     event.preventDefault();
@@ -21,16 +34,32 @@ smb.addEventListener("click", function(event) {
             axe: axeY.value
         }
     };
+    conceptsResults.push(result);
+    if (conceptsCounter+1 <= concepts.length) {
+        if(conceptsCounter+1 === concepts.length){
+            smb.value = "Finish";
+        }
+        resetAxes();
+        document.getElementById('stepCounter').textContent = `Step: ${conceptsCounter}/${concepts.length}`;
+        return;
+    }
+    console.log(conceptsResults);
+    conceptsCounter = 0;
+    smb.value = "Next";
+    resetAxes();
+
+
     let formattedPalette = formatPalette(palette);
     let finalResult = {
         palette: formattedPalette,
         base_color: baseColor,
-        results: result,
+        results: conceptsResults,
     };
     results.push(finalResult);
     console.log(results);
     localStorage.setItem("results", JSON.stringify(results));
     window.generateNewPalette();
+    document.getElementById('stepCounter').textContent = `Step: ${conceptsCounter}/${concepts.length}`;
 });
 
 function exportDataJson(){
@@ -70,20 +99,23 @@ document.getElementById("exportCSV").addEventListener("click", function() {
             header += `Color ${index + 1} (h),Color ${index + 1} (s),Color ${index + 1} (l),`;
         });
     }
-    header += "Base Color(h),Base Color(s),Base Color(l),X Axis,Y Axis\n";
-    csvContent += header;
+    header += "Base Color(h),Base Color(s),Base Color(l),";
+    for (let i = 0; i < concepts.length; i++) {
+        header += `Step ${i + 1} Concept 1 Name,Step ${i + 1} Concept 1 Value,Step ${i + 1} Concept 2 Name,Step ${i + 1} Concept 2 Value,`;
+    }
+    csvContent += header.slice(0, -1) + "\n";
 
     results.forEach(result => {
         let paletteStr = result.palette.map(color => `${color.h},${color.s},${color.l}`).join(",");
         let baseColorStr = `${result.base_color.h},${result.base_color.s},${result.base_color.l}`;
-        let xAxisStr = `${result.results.x.axe} : ${result.results.x.value}`;
-        let yAxisStr = `${result.results.y.axe} : ${result.results.y.value}`;
+        let conceptsStr = result.results.map(conceptResult => {
+            return `${conceptResult.x.axe},${conceptResult.x.value},${conceptResult.y.axe},${conceptResult.y.value}`;
+        }).join(",");
 
         let row = [
             paletteStr,
             baseColorStr,
-            xAxisStr,
-            yAxisStr
+            conceptsStr
         ].join(",");
         csvContent += row + "\n";
     });

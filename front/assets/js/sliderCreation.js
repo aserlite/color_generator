@@ -55,7 +55,11 @@ function createSliderHTML() {
     submitButton.value = 'Next';
     submitButton.id = 'submitForm';
 
-    form.append(inputValueX, inputAxeX, inputValueY, inputAxeY, submitButton);
+    const stepCounter = document.createElement('span');
+    stepCounter.id = 'stepCounter';
+    stepCounter.textContent = `Step: 1/`+concepts.length;
+
+    form.append(inputValueX, inputAxeX, inputValueY, inputAxeY, submitButton, stepCounter);
 
     scaleDiv.append(sliderAxisDiv, form);
 

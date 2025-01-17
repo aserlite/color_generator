@@ -3,16 +3,17 @@ let axes = {
     y: null
 };
 
-function getRandomConcept() {
-    const concept = concepts[Math.floor(Math.random() * concepts.length)];
-    const range = concept.ranges[Math.floor(Math.random() * concept.ranges.length)];
-    return { name: concept.name, range: range.range };
+let conceptsCounter = 0;
+window.getConcepts  =function () {
+    let tmp = concepts[conceptsCounter];
+    conceptsCounter++;
+    return {
+        x: { name: tmp.name, range: tmp.ranges[0].range },
+        y: { name: tmp.name, range: tmp.ranges[1].range }
+    };
 }
 
-axes.x = getRandomConcept();
-do {
-    axes.y = getRandomConcept();
-} while (axes.y.name === axes.x.name);
+axes = getConcepts();
 
 document.getElementById("axeX_min").innerHTML = axes.x.range[0];
 document.getElementById("axeX_max").innerHTML = axes.x.range[1];
@@ -72,6 +73,12 @@ let sliderSketch = (s) => {
     s.mouseReleased = () => {
         dragging = false;
     };
+    s.resetPosition = ()=>{
+        valueX = 0;
+        valueY = 0;
+        updateValuesInDOM(valueX, valueY);
+        s.redraw();
+    }
 
     function updateValuesInDOM(x, y) {
         document.getElementById("valueX").value = x;
@@ -88,6 +95,10 @@ let sliderSketch = (s) => {
         } else {
             document.getElementById("axeY").value = axes.y.range[1];
         }
+    }
+
+    window.resetSlider = function () {
+        s.resetPosition();
     }
 };
 

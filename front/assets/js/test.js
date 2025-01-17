@@ -27,13 +27,13 @@ function draw() {
     textAlign(CENTER, CENTER);
     textSize(70);
     textStyle(BOLD);
-    text(concept.range[0].toUpperCase(), width / 4, height / 8);
+    text(concept.ranges[0].range[0].toUpperCase(), width / 4, height / 8);
 
     fill(0);
     textAlign(CENTER, CENTER);
     textSize(70);
     textStyle(BOLD);
-    text(concept.range[1].toUpperCase(), 3 * width / 4, height / 8);
+    text(concept.ranges[0].range[1].toUpperCase(), 3 * width / 4, height / 8);
 
     if (!dragging) {
         ySpeed = ySpeed + gravityAcceleration;
